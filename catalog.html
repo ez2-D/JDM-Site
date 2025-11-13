@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JDM World - Каталог</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleCatalog.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1><a href="index.html" style="color: #e10600; text-decoration: none;">JDM World</a></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html" class="active">Каталог</a></li>
+                <li><a href="login.html" id="login-link">Войти</a></li>
+                <li><a href="profile.html" id="profile-link" style="display:none;">Профиль</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="catalog-container">
+            <!-- Фильтры -->
+            <aside class="filters-sidebar">
+                <h3>Фильтры</h3>
+                
+                <div class="filter-group">
+                    <label>Марка</label>
+                    <select id="filter-brand">
+                        <option value="">Все марки</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Mazda">Mazda</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Subaru">Subaru</option>
+                        <option value="Mitsubishi">Mitsubishi</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Год выпуска</label>
+                    <select id="filter-year">
+                        <option value="">Любой год</option>
+                        <option value="1990">1990-1995</option>
+                        <option value="1995">1995-2000</option>
+                        <option value="2000">2000-2005</option>
+                        <option value="2005">2005-2010</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Тип кузова</label>
+                    <select id="filter-body">
+                        <option value="">Все типы</option>
+                        <option value="Coupe">Купе</option>
+                        <option value="Sedan">Седан</option>
+                        <option value="Hatchback">Хэтчбек</option>
+                        <option value="SUV">Внедорожник</option>
+                    </select>
+                </div>
+
+                <button id="reset-filters" class="reset-btn">Сбросить фильтры</button>
+            </aside>
+
+            <!-- Основной контент каталога -->
+            <section class="catalog-content">
+                <div class="catalog-header">
+                    <h2>Каталог JDM автомобилей</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Поиск по модели...">
+                        <button id="search-btn">Найти</button>
+                    </div>
+                </div>
+
+                <div class="catalog-grid" id="cars-grid">
+                    <!-- Карточки машин будут здесь -->
+                </div>
+
+                <div class="loading" id="loading">Загрузка...</div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 JDM World. Все права защищены.</p>
+    </footer>
+
+    <script src="js/catalog.js"></script>
+</body>
+</html>
