@@ -195,6 +195,15 @@
     background: #b30500;
 }
 
+.btn-buy {
+    background-color: #e10600;
+    color: white;
+}
+
+.btn-buy:hover {
+    background-color: #b30500;
+}
+
 .btn-secondary {
     background: #6c757d;
     color: white;

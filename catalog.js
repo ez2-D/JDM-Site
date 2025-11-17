@@ -5,78 +5,140 @@ const carsData = [
         brand: "Nissan",
         model: "Skyline R34 GT-R",
         year: 1999,
-        price: 18500000,
-        bodyType: "Coupe",
+        price: 12500000,
+        bodyType: "Купе",
         engine: "2.6L RB26DETT",
         power: "280 л.с.",
         description: "Легендарный японский спорткар, икона JDM культуры.",
-        image: "images/skyline-r34.jpg",
-        has3d: true
+        image: "img/skyline-r-34-GT-R (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/nissan/skyline_gt-r/generation10/"
     },
     {
         id: 2,
         brand: "Toyota",
         model: "Supra MK4",
         year: 1998,
-        price: 7800000,
-        bodyType: "Coupe",
+        price: 6000000,
+        bodyType: "Купе",
         engine: "3.0L 2JZ-GTE",
         power: "320 л.с.",
         description: "Знаменитый благодаря фильму 'Форсаж'.",
-        image: "images/supra-mk4.jpg",
-        has3d: true
+        image: "img/supra-mk4 (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/toyota/supra/generation4/restyling1/"
     },
     {
         id: 3,
         brand: "Mazda",
         model: "RX-7 FD3S",
         year: 1995,
-        price: 2600000,
-        bodyType: "Coupe",
+        price: 3500000,
+        bodyType: "Купе",
         engine: "1.3L 13B-REW",
         power: "255 л.с.",
         description: "Роторный двигатель, уникальный дизайн.",
-        image: "images/rx7-fd.jpg",
-        has3d: false
+        image: "img/mazda-rx7 (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/mazda/rx-7/generation3/"
     },
     {
         id: 4,
         brand: "Honda",
         model: "Civic Type R EK9",
         year: 1997,
-        price: 1700000,
-        bodyType: "Hatchback",
+        price: 1500000,
+        bodyType: "Хэтчбек",
         engine: "1.6L B16B",
         power: "185 л.с.",
         description: "Первый Civic с маркировкой Type R.",
-        image: "images/civic-ek9.jpg",
-        has3d: false
+        image: "img/civic-type-r-ek9 (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/honda/civic_type_r/generation1/"
     },
     {
         id: 5,
         brand: "Subaru",
         model: "Impreza WRX STI",
         year: 2000,
-        price: 1500000,
-        bodyType: "Sedan",
+        price: 1300000,
+        bodyType: "Седан",
         engine: "2.0L EJ207",
         power: "280 л.с.",
         description: "Легенда раллийных соревнований.",
-        image: "images/impreza-sti.jpg",
-        has3d: false
+        image: "img/imreza-wrx-sti (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/subaru/impreza_wrx_sti/generation2/restyling0/"
     },
     {
         id: 6,
         brand: "Mitsubishi",
         model: "Lancer Evolution VI",
         year: 1999,
-        price: 1700000,
-        bodyType: "Sedan",
+        price: 2000000,
+        bodyType: "Седан",
         engine: "2.0L 4G63T",
         power: "280 л.с.",
         description: "Томми Мякинен edition.",
-        image: "images/evo6.jpg",
-        has3d: false
+        image: "img/lancer-evo-6 (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/mitsubishi/lancer_evolution/generation6/"
+    },
+    {
+        id: 7,
+        brand: "Nissan",
+        model: "Silvia S15",
+        year: 2001,
+        price: 4200000,
+        bodyType: "Купе",
+        engine: "2.0L SR20DET",
+        power: "250 л.с.",
+        description: "Культовый дрифт-кар.",
+        image: "img/silvia-s15 (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/nissan/silvia/generation7/"
+    },
+    {
+        id: 8,
+        brand: "Toyota",
+        model: "Chaser JZX100",
+        year: 1998,
+        price: 700000,
+        bodyType: "Седан",
+        engine: "2.5L 1JZ-GTE",
+        power: "280 л.с.",
+        description: "Легенда японских улиц.",
+        image: "img/chaser-jzx100 (1).jpg",
+        has3d: false,
+        buyLink: "https://auto.drom.ru/toyota/chaser/generation6/"
+    },
+    {
+        id: 9,
+        brand: "Honda",
+        model: "NSX NA1",
+        year: 1993,
+        price: 10000000,
+        bodyType: "Купе",
+        engine: "3.0L C30A",
+        power: "270 л.с.",
+        description: "Японский суперкар с алюминиевым кузовом.",
+        image: "img/nsx (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/honda/nsx/generation1/"
+    },
+    {
+        id: 10,
+        brand: "Nissan",
+        model: "180SX",
+        year: 1996,
+        price: 2750000,
+        bodyType: "Купе",
+        engine: "1.8L SR20DET",
+        power: "205 л.с.",
+        description: "Популярный дрифт-кар и проект для тюнинга.",
+        image: "img/180sx (1).jpg",
+        has3d: true,
+        buyLink: "https://auto.drom.ru/nissan/180sx/"
     }
 ];
 
@@ -163,6 +225,11 @@ function filterCars() {
     }, 500);
 }
 
+// Функция форматирования цены
+function formatPrice(price) {
+    return new Intl.NumberFormat('ru-RU').format(price);
+}
+
 // Отображение машин в сетке
 function renderCars(cars) {
     if (cars.length === 0) {
@@ -192,9 +259,10 @@ function renderCars(cars) {
                     <div>Мощность: ${car.power}</div>
                     <div>Кузов: ${car.bodyType}</div>
                 </div>
-                <div class="car-price">₽${car.price.toLocaleString()}</div>
+                <div class="car-price">${formatPrice(car.price)} ₽</div>
                 <div class="car-actions">
                     <a href="item.html?id=${car.id}" class="btn btn-primary">Подробнее</a>
+                    <a href="${car.buyLink}" target="_blank" class="btn btn-buy">Купить</a>
                     <button class="btn btn-secondary" onclick="addToFavorites(${car.id})">В избранное</button>
                 </div>
             </div>
@@ -216,7 +284,10 @@ function renderCars(cars) {
 // Добавление в избранное
 function addToFavorites(carId) {
     // Временная реализация - позже свяжем с системой авторизации
-    alert(`Машина ${carId} добавлена в избранное!`);
+    const car = carsData.find(c => c.id === carId);
+    if (car) {
+        alert(`"${car.brand} ${car.model}" добавлена в избранное!`);
+    }
     // Здесь будет логика добавления в избранное
 }
 
