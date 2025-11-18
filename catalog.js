@@ -1,147 +1,3 @@
-// Данные машин (временно, потом заменим на данные с сервера)
-const carsData = [
-    {
-        id: 1,
-        brand: "Nissan",
-        model: "Skyline R34 GT-R",
-        year: 1999,
-        price: 12500000,
-        bodyType: "Купе",
-        engine: "2.6L RB26DETT",
-        power: "280 л.с.",
-        description: "Легендарный японский спорткар, икона JDM культуры.",
-        image: "img/skyline-r-34-GT-R (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/nissan/skyline_gt-r/generation10/"
-    },
-    {
-        id: 2,
-        brand: "Toyota",
-        model: "Supra MK4",
-        year: 1998,
-        price: 6000000,
-        bodyType: "Купе",
-        engine: "3.0L 2JZ-GTE",
-        power: "320 л.с.",
-        description: "Знаменитый благодаря фильму 'Форсаж'.",
-        image: "img/supra-mk4 (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/toyota/supra/generation4/restyling1/"
-    },
-    {
-        id: 3,
-        brand: "Mazda",
-        model: "RX-7 FD3S",
-        year: 1995,
-        price: 3500000,
-        bodyType: "Купе",
-        engine: "1.3L 13B-REW",
-        power: "255 л.с.",
-        description: "Роторный двигатель, уникальный дизайн.",
-        image: "img/mazda-rx7 (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/mazda/rx-7/generation3/"
-    },
-    {
-        id: 4,
-        brand: "Honda",
-        model: "Civic Type R EK9",
-        year: 1997,
-        price: 1500000,
-        bodyType: "Хэтчбек",
-        engine: "1.6L B16B",
-        power: "185 л.с.",
-        description: "Первый Civic с маркировкой Type R.",
-        image: "img/civic-type-r-ek9 (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/honda/civic_type_r/generation1/"
-    },
-    {
-        id: 5,
-        brand: "Subaru",
-        model: "Impreza WRX STI",
-        year: 2000,
-        price: 1300000,
-        bodyType: "Седан",
-        engine: "2.0L EJ207",
-        power: "280 л.с.",
-        description: "Легенда раллийных соревнований.",
-        image: "img/imreza-wrx-sti (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/subaru/impreza_wrx_sti/generation2/restyling0/"
-    },
-    {
-        id: 6,
-        brand: "Mitsubishi",
-        model: "Lancer Evolution VI",
-        year: 1999,
-        price: 2000000,
-        bodyType: "Седан",
-        engine: "2.0L 4G63T",
-        power: "280 л.с.",
-        description: "Томми Мякинен edition.",
-        image: "img/lancer-evo-6 (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/mitsubishi/lancer_evolution/generation6/"
-    },
-    {
-        id: 7,
-        brand: "Nissan",
-        model: "Silvia S15",
-        year: 2001,
-        price: 4200000,
-        bodyType: "Купе",
-        engine: "2.0L SR20DET",
-        power: "250 л.с.",
-        description: "Культовый дрифт-кар.",
-        image: "img/silvia-s15 (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/nissan/silvia/generation7/"
-    },
-    {
-        id: 8,
-        brand: "Toyota",
-        model: "Chaser JZX100",
-        year: 1998,
-        price: 700000,
-        bodyType: "Седан",
-        engine: "2.5L 1JZ-GTE",
-        power: "280 л.с.",
-        description: "Легенда японских улиц.",
-        image: "img/chaser-jzx100 (1).jpg",
-        has3d: false,
-        buyLink: "https://auto.drom.ru/toyota/chaser/generation6/"
-    },
-    {
-        id: 9,
-        brand: "Honda",
-        model: "NSX NA1",
-        year: 1993,
-        price: 10000000,
-        bodyType: "Купе",
-        engine: "3.0L C30A",
-        power: "270 л.с.",
-        description: "Японский суперкар с алюминиевым кузовом.",
-        image: "img/nsx (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/honda/nsx/generation1/"
-    },
-    {
-        id: 10,
-        brand: "Nissan",
-        model: "180SX",
-        year: 1996,
-        price: 2750000,
-        bodyType: "Купе",
-        engine: "1.8L SR20DET",
-        power: "205 л.с.",
-        description: "Популярный дрифт-кар и проект для тюнинга.",
-        image: "img/180sx (1).jpg",
-        has3d: true,
-        buyLink: "https://auto.drom.ru/nissan/180sx/"
-    }
-];
-
 // Элементы DOM
 const carsGrid = document.getElementById('cars-grid');
 const loadingElement = document.getElementById('loading');
@@ -152,19 +8,61 @@ const filterYear = document.getElementById('filter-year');
 const filterBody = document.getElementById('filter-body');
 const resetFiltersBtn = document.getElementById('reset-filters');
 
-// Текущие фильтры
+// Текущие фильтры и данные
 let currentFilters = {
     brand: '',
     year: '',
     body: '',
     search: ''
 };
+let carsData = [];
 
 // Инициализация каталога
 document.addEventListener('DOMContentLoaded', function() {
-    renderCars(carsData);
+    loadCarsFromAPI();
     setupEventListeners();
 });
+
+// Загрузка машин из API
+async function loadCarsFromAPI() {
+    showLoading();
+    try {
+        const response = await fetch('api/cars.php');
+        const result = await response.json();
+        
+        if (result.success) {
+            carsData = result.data;
+            renderCars(carsData);
+            populateBrandFilter();
+        } else {
+            console.error('Error loading cars:', result.message);
+            showError('Ошибка загрузки данных. Пожалуйста, обновите страницу.');
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        showError('Ошибка соединения с сервером.');
+    } finally {
+        hideLoading();
+    }
+}
+
+// Заполняем фильтр брендов из данных
+function populateBrandFilter() {
+    const brands = [...new Set(carsData.map(car => car.brand))].sort();
+    
+    // Очищаем существующие опции (кроме первой)
+    while (filterBrand.options.length > 1) {
+        filterBrand.remove(1);
+    }
+    
+    // Добавляем бренды из БД
+    brands.forEach(brand => {
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand;
+        filterBrand.appendChild(option);
+    });
+}
 
 // Настройка обработчиков событий
 function setupEventListeners() {
@@ -183,7 +81,6 @@ function applyFilters() {
     currentFilters.brand = filterBrand.value;
     currentFilters.year = filterYear.value;
     currentFilters.body = filterBody.value;
-    
     filterCars();
 }
 
@@ -222,7 +119,7 @@ function filterCars() {
         
         hideLoading();
         renderCars(filteredCars);
-    }, 500);
+    }, 300);
 }
 
 // Функция форматирования цены
@@ -247,7 +144,9 @@ function renderCars(cars) {
             <div class="car-image">
                 ${car.image ? 
                     `<img src="${car.image}" alt="${car.brand} ${car.model}" onerror="this.style.display='none'">` : 
-                    `${car.brand} ${car.model}`
+                    `<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f8f9fa; color: #6c757d;">
+                        ${car.brand} ${car.model}
+                    </div>`
                 }
                 ${car.has3d ? '<div class="3d-badge" style="position: absolute; top: 10px; right: 10px; background: #e10600; color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px;">3D</div>' : ''}
             </div>
@@ -282,13 +181,123 @@ function renderCars(cars) {
 }
 
 // Добавление в избранное
-function addToFavorites(carId) {
-    // Временная реализация - позже свяжем с системой авторизации
-    const car = carsData.find(c => c.id === carId);
-    if (car) {
-        alert(`"${car.brand} ${car.model}" добавлена в избранное!`);
+async function addToFavorites(carId) {
+    // Проверяем авторизацию (временная реализация)
+    const isLoggedIn = checkAuthStatus();
+    
+    if (!isLoggedIn) {
+        alert('Для добавления в избранное необходимо войти в систему.');
+        window.location.href = 'login.html';
+        return;
     }
-    // Здесь будет логика добавления в избранное
+    
+    try {
+        // Отправляем запрос на сервер для добавления в избранное
+        const response = await fetch('api/favorites.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                car_id: carId,
+                action: 'add'
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            const car = carsData.find(c => c.id === carId);
+            if (car) {
+                showNotification(`"${car.brand} ${car.model}" добавлена в избранное!`, 'success');
+            }
+        } else {
+            showNotification('Ошибка при добавлении в избранное', 'error');
+        }
+    } catch (error) {
+        console.error('Error adding to favorites:', error);
+        showNotification('Ошибка соединения с сервером', 'error');
+    }
+}
+
+// Проверка статуса авторизации (временная реализация)
+function checkAuthStatus() {
+    // Пока проверяем наличие токена в localStorage
+    // Позже заменим на полноценную проверку сессии
+    return localStorage.getItem('auth_token') !== null;
+}
+
+// Показать уведомление
+function showNotification(message, type = 'info') {
+    // Создаем элемент уведомления
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span>${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+    `;
+    
+    // Добавляем стили для уведомления
+    if (!document.querySelector('.notification-styles')) {
+        const styles = document.createElement('style');
+        styles.className = 'notification-styles';
+        styles.textContent = `
+            .notification {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: white;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                border-left: 4px solid #007bff;
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+            }
+            .notification-success { border-left-color: #28a745; }
+            .notification-error { border-left-color: #dc3545; }
+            .notification-warning { border-left-color: #ffc107; }
+            .notification-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .notification-close {
+                background: none;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                margin-left: 1rem;
+            }
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Автоматически удаляем через 5 секунд
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Показать ошибку
+function showError(message) {
+    carsGrid.innerHTML = `
+        <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+            <h3>${message}</h3>
+            <button onclick="loadCarsFromAPI()" class="btn btn-primary" style="margin-top: 1rem;">Попробовать снова</button>
+        </div>
+    `;
 }
 
 // Показать индикатор загрузки
@@ -299,4 +308,9 @@ function showLoading() {
 // Скрыть индикатор загрузки
 function hideLoading() {
     loadingElement.classList.remove('show');
+}
+
+// Функция для обновления данных (можно вызывать извне)
+function refreshData() {
+    loadCarsFromAPI();
 }
